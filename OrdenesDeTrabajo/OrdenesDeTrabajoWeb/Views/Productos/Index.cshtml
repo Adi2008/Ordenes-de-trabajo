@@ -1,4 +1,4 @@
-﻿@model OrdenesDeTrabajoWeb.Models.ProductoModel
+﻿@model List<OrdenesDeTrabajoWeb.Models.ProductoModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,4 +6,7 @@
 
 <h2>Productos</h2>
 
-<p>@Model.Descripcion</p>
+@foreach (var producto in Model)
+{
+    <p>@producto.Id @producto.Descripcion</p>
+}
