@@ -9,6 +9,15 @@ namespace OrdenesDeTrabajo.Web.Controllers
 {
     public class ProductosController : Controller
     {
+        ProductosBL _productosBL;
+        CategoriaBL _categoriaBL;
+
+        public ProductosController()
+        {
+            _productosBL = new ProductosBL();
+            _categoriaBL = new CategoriaBL();
+        }
+
         // GET: Producto
         public ActionResult Index()
         {
@@ -16,6 +25,23 @@ namespace OrdenesDeTrabajo.Web.Controllers
             var ListadeProductos = productosBL.ObtenerProductos();
 
             return View(ListadeProductos);
+        }
+
+        public ActionResult Crear()
+        {
+            var nuevoProducto = new Producto();
+            var categorias = _categoriaBL.ObtenerCategorias();
+
+            ViewBag.ListaCategorias = new SelectList(categorias, "Id", "Descripcion");
+
+                return View(nuevoProducto);
+        }
+        [HttpPost]
+        public ActionResult Crear(Producto producto)
+        {
+            _productosBL.GuardarProducto(producto);
+
+            return RedirectToAction("Index");
         }
     }
 }
