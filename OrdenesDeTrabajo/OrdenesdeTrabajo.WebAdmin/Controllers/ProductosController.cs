@@ -11,6 +11,7 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
     {
         ProductosBL _productosBL;
         CategoriaBL _categoriaBL;
+        private object imagen;
 
         public ProductosController()
         {
@@ -37,11 +38,33 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Crear(Producto producto)
+        public ActionResult Crear(Producto producto, HttpPostedFileBase imagen)
         {
-            _productosBL.GuardarProducto(producto);
+            if(ModelState.IsValid)
+            {
+                if(producto.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(producto);
+                }
 
-            return RedirectToAction("Index");
+                if(imagen != null)
+                {
+                    producto.UrlImagen = GuardarImagen(imagen);
+                }
+
+                _productosBL.GuardarProducto(producto);
+
+                return RedirectToAction("Index");
+            }
+
+            var nuevoProducto = new Producto();
+            var categoria = _categoriaBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId =
+                new SelectList(categoria, "Id", "Descripcion");
+
+            return View(producto);
         }
 
         public ActionResult Editar(int id)
@@ -63,14 +86,31 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
         [HttpPost]
         public ActionResult Editar(Producto producto)
         {
-            _productosBL.GuardarProducto(producto);
+            if (ModelState.IsValid)
+            {
+                if (producto.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(producto);
+                }
 
-            return RedirectToAction("Index");
+                _productosBL.GuardarProducto(producto);
+
+                return RedirectToAction("Index");
+            }
+
+            var nuevoProducto = new Producto();
+            var categoria = _categoriaBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId =
+                new SelectList(categoria, "Id", "Descripcion");
+
+            return View(producto);
         }
 
         public ActionResult Detalle(int id)
         {
-            var producto = _productosBL.ObtenerProducto(id); 
+            var producto = _productosBL.ObtenerProducto(id);
 
             return View(producto);
         }
@@ -88,6 +128,14 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
             _productosBL.EliminarProducto(producto.Id);
 
             return RedirectToAction("Index");
+        }
+
+       private string GuardarImagen(HttpPostedFileBase imagen)
+        {
+            string path = Server.MapPath("~/imagenes/" + imagen.FileName);
+            imagen.SaveAs(path);
+
+            return "/imagenes/" + imagen.FileName;
         }
     }
 }
