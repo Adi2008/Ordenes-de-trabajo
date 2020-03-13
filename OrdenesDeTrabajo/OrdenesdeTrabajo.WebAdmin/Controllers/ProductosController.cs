@@ -132,10 +132,10 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
 
        private string GuardarImagen(HttpPostedFileBase imagen)
         {
-            string path = Server.MapPath("~/imagenes/" + imagen.FileName);
+            string path = Server.MapPath("~/Imagenes/" + imagen.FileName);
             imagen.SaveAs(path);
 
-            return "/imagenes/" + imagen.FileName;
+            return "/Imagenes/" + imagen.FileName;
         }
     }
 }

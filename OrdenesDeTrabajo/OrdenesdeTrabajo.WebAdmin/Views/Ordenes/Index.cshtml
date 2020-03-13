@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ClienteId)
+            @Html.DisplayNameFor(model => model.Cliente)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Fecha)
@@ -43,7 +43,7 @@
         <td>
             @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
             @Html.ActionLink("Detalle", "Detalle", new { id=item.Id }) |
-            @Html.ActionLink("ver Productos", "Index", "OrdenDetalle", new { id=item.Id },null)
+            @Html.ActionLink("Ver Productos", "Index","OrdenDetalle", new { id=item.Id }, null)
         </td>
     </tr>
 }

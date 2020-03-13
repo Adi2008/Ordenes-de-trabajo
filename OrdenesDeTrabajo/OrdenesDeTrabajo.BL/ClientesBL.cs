@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace OrdenesDeTrabajo.BL
 {
-   public  class ClientesBL
+    public class ClientesBL
     {
         Contexto _contexto;
-        public List<Cliente> ListadeClientes { get; set; }
+        public List<Clientes> ListadeClientes { get; set; }
 
         public ClientesBL()
         {
             _contexto = new Contexto();
-            ListadeClientes = new List<Cliente>();
+            ListadeClientes = new List<Clientes>();
         }
 
-        public List<Cliente> ObtenerClientes()
+        public List<Clientes> ObtenerClientes()
         {
             ListadeClientes = _contexto.Clientes
                 .OrderBy(r => r.Nombre)
@@ -26,7 +26,7 @@ namespace OrdenesDeTrabajo.BL
             return ListadeClientes;
         }
 
-        public List<Cliente> ObtenerClientesActivos()
+        public List<Clientes> ObtenerClientesActivos()
         {
             ListadeClientes = _contexto.Clientes
                 .Where(r => r.Activo == true)
@@ -36,7 +36,7 @@ namespace OrdenesDeTrabajo.BL
             return ListadeClientes;
         }
 
-        public void GuardarCliente(Cliente cliente)
+        public void GuardarCliente(Clientes cliente)
         {
             if (cliente.Id == 0)
             {
@@ -55,7 +55,7 @@ namespace OrdenesDeTrabajo.BL
             _contexto.SaveChanges();
         }
 
-        public Cliente ObtenerCliente(int id)
+        public Clientes ObtenerCliente(int id)
         {
             var cliente = _contexto.Clientes.Find(id);
 

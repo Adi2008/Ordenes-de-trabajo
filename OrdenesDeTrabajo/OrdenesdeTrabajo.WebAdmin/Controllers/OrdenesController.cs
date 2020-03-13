@@ -35,8 +35,6 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
             return View(nuevaOrden);
         }
 
-
-
         [HttpPost]
         public ActionResult Crear(Orden orden)
         {
@@ -52,29 +50,25 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var clientes = _clientesBL.ObtenerClientesActivos();
+            var clientes = _clientesBL.ObtenerClientes();
 
-
-            ViewBag.ClienteId = new SelectList(clientes, "Id", "Nombre",orden.ClienteId);
+            ViewBag.ClienteId = new SelectList(clientes, "Id", "Nombre");
 
             return View(orden);
-
-             }
+        }
 
         public ActionResult Editar(int id)
         {
             var orden = _ordenesBL.ObtenerOrden(id);
-            var clientes = _clientesBL.ObtenerClientesActivos();
+            var clientes = _clientesBL.ObtenerClientes();
 
             ViewBag.ClienteId = new SelectList(clientes, "Id", "Nombre", orden.ClienteId);
 
             return View(orden);
         }
 
-
         [HttpPost]
-       
- public ActionResult Editar(Orden orden)
+        public ActionResult Editar(Orden orden)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +83,7 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var clientes = _clientesBL.ObtenerClientesActivos();
+            var clientes = _clientesBL.ObtenerClientes();
 
             ViewBag.ClienteId = new SelectList(clientes, "Id", "Nombre", orden.ClienteId);
 
@@ -101,8 +95,7 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
             var orden = _ordenesBL.ObtenerOrden(id);
 
             return View(orden);
-
-
         }
+
     }
 }
