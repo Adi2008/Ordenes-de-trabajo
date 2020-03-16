@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - OrdenesDeTrabajo!</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -20,14 +20,14 @@
                 @Html.ActionLink("Ordenes De Trabajo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ol class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     <li>
                         @Html.ActionLink("Inicio","Index","Home")
                     <li>
                         @Html.ActionLink("lista de Productos","Index","Productos")
                     <li>
                     </li>
-                </ol>
+                </ul>
             </div>
         </div>
     </div>
