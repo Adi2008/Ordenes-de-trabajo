@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace OrdenesdeTrabajo.WebAdmin.Controllers
 {
+    [Authorize]
     public class ProductosController : Controller
     {
         ProductosBL _productosBL;
@@ -29,8 +30,7 @@ namespace OrdenesdeTrabajo.WebAdmin.Controllers
         public ActionResult Crear()
         {
             var nuevoProducto = new Producto();
-            var categoria = _categoriaBL.ObtenerCategorias();
-
+            var categoria = _categoriaBL.ObtenerCategorias();  
             ViewBag.CategoriaId = 
                 new SelectList(categoria, "Id", "Descripcion");
             

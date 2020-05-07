@@ -3,8 +3,10 @@ using System.Web.Mvc;
 
 namespace OrdenesdeTrabajo.WebAdmin.Controllers
 {
+    [Authorize]
     public class CategoriasController : Controller
     {
+        
         CategoriaBL _categoriasBL;
 
         public CategoriasController()
